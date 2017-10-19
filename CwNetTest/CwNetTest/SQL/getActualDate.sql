@@ -1,0 +1,1 @@
+﻿select dbo.f_sys_GetActualDate() AS currDate

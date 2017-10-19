@@ -1,0 +1,1 @@
+﻿SELECT MAX(BpId) AS actualBpId FROM BusinessProcesses
