@@ -11,7 +11,7 @@
         <NUnitConsole>"$(NUnitHome)\bin\nunit-console.exe"</NUnitConsole>
         <testResultsTxt>"$(teamcity_build_checkoutDir)\TestResult.txt"</testResultsTxt>
         <testResultsXml>"$(teamcity_build_checkoutDir)\TestResult.xml"</testResultsXml>
-        <projectFile>"$(teamcity_build_checkoutDir)\Etna.QA.SpecFlow.Examples\Etna.QA.SpecFlow.Examples.csproj"</projectFile>
+        <projectFile>"$(teamcity_build_checkoutDir)\CwNetTest\CwNetTest\CwNetTest\CwNetTest.csproj"</projectFile>
         <SpecflowExe>"C:\Program Files (x86)\TechTalk\SpecFlow\specflow.exe"</SpecflowExe>
     </PropertyGroup>
 
