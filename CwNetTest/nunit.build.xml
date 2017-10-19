@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<Project ToolsVersion="4.0" DefaultTarget="Compile" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <ItemGroup>
+        <NUnitAddinFiles Include="$(teamcity_dotnet_nunitaddin)-2.6.2.*" />
+    </ItemGroup>
+
+    <PropertyGroup>
+        <teamcity_build_checkoutDir Condition=" '$(teamcity_build_checkoutDir)' == '' ">.</teamcity_build_checkoutDir>
+        <NUnitHome>C:\NUnit-2.6.2</NUnitHome>
+        <NUnitConsole>"$(NUnitHome)\bin\nunit-console.exe"</NUnitConsole>
+        <testResultsTxt>"$(teamcity_build_checkoutDir)\TestResult.txt"</testResultsTxt>
+        <testResultsXml>"$(teamcity_build_checkoutDir)\TestResult.xml"</testResultsXml>
+        <projectFile>"$(teamcity_build_checkoutDir)\Etna.QA.SpecFlow.Examples\Etna.QA.SpecFlow.Examples.csproj"</projectFile>
+        <SpecflowExe>"C:\Program Files (x86)\TechTalk\SpecFlow\specflow.exe"</SpecflowExe>
+    </PropertyGroup>
+
+    <Target Name="RunTests">
+        <MakeDir Directories="$(NUnitHome)/bin/addins" />
+        <Copy SourceFiles="@(NUnitAddinFiles)" DestinationFolder="$(NUnitHome)/bin/addins" />
+        <Exec Command="$(NUnitConsole) /domain:multiple /labels /out=$(testResultsTxt) /xml=$(testResultsXml) $(projectFile)" ContinueOnError="true"/>        
+    </Target>
+
+    <Target Name="SpecflowReports">
+        <Exec Command="$(SpecflowExe) nunitexecutionreport $(projectFile) /xmlTestResult:$(testResultsXml) /testOutput:$(testResultsTxt) /out:"$(teamcity_build_checkoutDir)/SpecFlowExecutionReport.html""/>
+        <Exec Command="$(SpecflowExe) stepdefinitionreport $(projectFile) /out:"$(teamcity_build_checkoutDir)/SpecFlowStepDefinitionReport.html""/>
+    </Target>
+</Project>
